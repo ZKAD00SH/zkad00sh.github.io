@@ -1,60 +1,881 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== CSS VARIABLES ===================== */
+    :root {
+      --bg: #f5f4f0;
+      --bg-card: #ffffff;
+      --bg-hover: #f0efe9;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --text-faint: #a0a0a0;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-subtle: #eff6ff;
+      --border: #e4e4e0;
+      --border-strong: #c8c8c0;
+      --tag-bg: #f0f0ec;
+      --tag-text: #444440;
+      --nav-bg: rgba(245,244,240,0.88);
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 10px;
+      --transition: 0.18s ease;
+    }
+    [data-theme="dark"] {
+      --bg: #0f0f0f;
+      --bg-card: #181818;
+      --bg-hover: #212121;
+      --text: #e8e8e4;
+      --text-muted: #888880;
+      --text-faint: #555550;
+      --accent: #60a5fa;
+      --accent-hover: #93c5fd;
+      --accent-subtle: #172033;
+      --border: #282828;
+      --border-strong: #383838;
+      --tag-bg: #222220;
+      --tag-text: #a0a09a;
+      --nav-bg: rgba(15,15,15,0.90);
+      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+    }
 
-<title>ZKAD00SH</title>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent-hover); }
+    img { max-width: 100%; display: block; }
 
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css" rel="stylesheet">
+    /* ===================== TYPOGRAPHY ===================== */
+    .mono { font-family: 'Space Mono', monospace; }
 
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px;
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px; font-weight: 700;
+      color: var(--text); letter-spacing: -0.02em;
+      transition: color var(--transition);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted); font-size: 13.5px; font-weight: 500;
+      padding: 5px 10px; border-radius: 6px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg-hover); }
+    .nav-controls { display: flex; align-items: center; gap: 6px; }
+
+    /* icon button */
+    .icon-btn {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--text-muted);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition);
+      font-size: 15px;
+    }
+    .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--bg-hover); }
+
+    .lang-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; font-weight: 700;
+      padding: 0 10px; width: auto;
+      letter-spacing: 0.05em;
+    }
+
+    /* hamburger */
+    .hamburger { display: none; }
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 56px; left: 0; right: 0;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px 16px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block; padding: 10px 0;
+      color: var(--text-muted); font-size: 15px; font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--text); }
+
+    /* ===================== LAYOUT ===================== */
+    main {
+      max-width: 860px; margin: 0 auto;
+      padding: 88px 24px 80px;
+    }
+    section { margin-bottom: 72px; }
+
+    /* ===================== HERO ===================== */
+    .hero { padding: 48px 0 32px; }
+    .hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-label::before {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 600; line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .hero h1 .highlight {
+      color: var(--accent);
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--text-muted); max-width: 520px;
+      line-height: 1.7; margin-bottom: 28px;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--tag-bg); border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 12.5px; color: var(--text-muted);
+    }
+    .hero-badge svg { width: 13px; height: 13px; opacity: 0.6; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ===================== SECTION HEADER ===================== */
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 24px; gap: 12px;
+    }
+    .section-title {
+      font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-faint);
+      font-family: 'Space Mono', monospace;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::before {
+      content: ''; width: 3px; height: 14px;
+      background: var(--accent); border-radius: 2px; flex-shrink: 0;
+    }
+    .section-link {
+      font-size: 12.5px; color: var(--accent);
+      font-weight: 500; white-space: nowrap;
+    }
+    .section-link:hover { text-decoration: underline; }
+
+    /* ===================== CARDS (BLOG) ===================== */
+    .cards-grid { display: grid; gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .card {
+      background: var(--bg-card);
+      padding: 20px 24px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: background var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .card::after {
+      content: '→';
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      color: var(--text-faint); font-size: 16px;
+      transition: transform var(--transition), color var(--transition);
+    }
+    .card:hover { background: var(--bg-hover); }
+    .card:hover::after { transform: translateY(-50%) translateX(3px); color: var(--accent); }
+    .card + .card { border-top: 1px solid var(--border); }
+    .card-meta {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .card-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; color: var(--text-faint); letter-spacing: 0.04em;
+    }
+    .tag {
+      font-size: 11px; font-weight: 500;
+      background: var(--tag-bg); color: var(--tag-text);
+      padding: 2px 8px; border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .tag.accent { background: var(--accent-subtle); color: var(--accent); border-color: transparent; }
+    .card-title {
+      font-size: 15px; font-weight: 500; color: var(--text);
+      line-height: 1.4; padding-right: 28px;
+    }
+    .card-desc {
+      font-size: 13.5px; color: var(--text-muted); line-height: 1.5;
+      padding-right: 28px;
+    }
+
+    /* ===================== LABS GRID ===================== */
+    .labs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .lab-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .lab-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    .lab-icon {
+      width: 36px; height: 36px;
+      background: var(--accent-subtle);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .lab-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .lab-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+    .lab-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+
+    /* ===================== CERTS GRID ===================== */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex; gap: 14px; align-items: flex-start;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .cert-card:hover {
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-hover);
+    }
+    .cert-logo {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .cert-info { flex: 1; min-width: 0; }
+    .cert-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
+    .cert-issuer { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .cert-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 600; font-family: 'Space Mono', monospace;
+      padding: 2px 7px; border-radius: 4px;
+    }
+    .cert-badge.pass { background: rgba(34,197,94,0.12); color: #16a34a; }
+    .cert-badge.fail { background: rgba(239,68,68,0.12); color: #dc2626; }
+    .cert-badge.pending { background: rgba(245,158,11,0.1); color: #d97706; }
+    [data-theme="dark"] .cert-badge.pass { background: rgba(34,197,94,0.15); color: #4ade80; }
+    [data-theme="dark"] .cert-badge.fail { background: rgba(239,68,68,0.15); color: #f87171; }
+    [data-theme="dark"] .cert-badge.pending { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+    /* ===================== TIMELINE (EXPERIENCE) ===================== */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 20px; padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 11.5px; color: var(--text-faint);
+      padding-top: 3px; letter-spacing: 0.04em;
+    }
+    .tl-body { }
+    .tl-role { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .tl-company { font-size: 13px; color: var(--accent); margin-bottom: 6px; }
+    .tl-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+
+    /* ===================== SKILLS SECTION ===================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+    }
+    .skill-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex; align-items: center; gap: 10px;
+      transition: all var(--transition);
+    }
+    .skill-item:hover { border-color: var(--border-strong); background: var(--bg-hover); }
+    .skill-icon { font-size: 18px; flex-shrink: 0; }
+    .skill-name { font-size: 13px; font-weight: 500; color: var(--text); }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      max-width: 860px; margin: 0 auto;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-left { font-size: 12.5px; color: var(--text-faint); }
+    .footer-links { display: flex; gap: 16px; }
+    .footer-links a {
+      font-size: 12.5px; color: var(--text-faint);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ===================== EMPTY STATE ===================== */
+    .empty {
+      text-align: center; padding: 48px 24px;
+      color: var(--text-faint); font-size: 14px;
+      border: 1px dashed var(--border); border-radius: var(--radius);
+    }
+    .empty-icon { font-size: 28px; margin-bottom: 8px; }
+
+    /* ===================== SCROLL FADE IN ===================== */
+    .fade-in {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      main { padding: 72px 16px 60px; }
+      .tl-item { grid-template-columns: 1fr; gap: 4px; }
+      .tl-year { font-size: 11px; }
+      .hero h1 { font-size: 28px; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .labs-grid { grid-template-columns: 1fr; }
+      footer { padding: 24px 16px; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-
-<header class="max-w-4xl mx-auto p-6 flex justify-between">
-<h1 class="text-xl font-bold">ZKAD00SH</h1>
-
-<button id="theme-toggle">🌙</button>
-</header>
-  
-<header>
+<!-- ==================== NAV ==================== -->
 <nav>
-<a href="/">Home</a>
-<a href="/blog">Blog</a>
-<a href="/labs">Labs</a>
-<a href="/certificates">Certificates</a>
-<a href="/about">About</a>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">dev<span>.</span>log</a>
+
+    <ul class="nav-links">
+      <li><a href="#blog" data-i18n="nav_blog">Blog</a></li>
+      <li><a href="#labs" data-i18n="nav_labs">Labs</a></li>
+      <li><a href="#certs" data-i18n="nav_certs">Certs</a></li>
+      <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+    </ul>
+
+    <div class="nav-controls">
+      <button class="icon-btn lang-btn" id="langToggle" title="Toggle language">TH</button>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+        <!-- sun icon -->
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <!-- moon icon -->
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn hamburger" id="hamburger" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
 </nav>
-</header>
-  
-<main class="max-w-3xl mx-auto px-6">
 
-<h2 class="text-lg mb-4">Recent Labs</h2>
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#blog" data-i18n="nav_blog">Blog</a>
+  <a href="#labs" data-i18n="nav_labs">Labs</a>
+  <a href="#certs" data-i18n="nav_certs">Certs</a>
+  <a href="#experience" data-i18n="nav_exp">Experience</a>
+</div>
 
-<ul class="space-y-3">
+<!-- ==================== MAIN ==================== -->
+<main>
 
-<li class="border p-4 rounded">
-Lab01
-</li>
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <div class="hero-label" data-i18n="hero_label">Portfolio</div>
+    <h1 data-i18n-html="hero_title">สวัสดี, ผม<span class="highlight">ชื่อของคุณ</span> 👋</h1>
+    <p class="hero-desc" data-i18n="hero_desc">
+      นักพัฒนา / วิศวกรระบบ ที่ชอบทดลอง lab ใหม่ๆ เรียนรู้ certification และแชร์ความรู้ผ่าน blog
+    </p>
+    <div class="hero-meta">
+      <div class="hero-badge">
+        <div class="status-dot"></div>
+        <span data-i18n="hero_status">กำลังทำงานอยู่</span>
+      </div>
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-i18n="hero_location">Bangkok, Thailand</span>
+      </div>
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span data-i18n="hero_role">Software Engineer</span>
+      </div>
+    </div>
+  </section>
 
-<li class="border p-4 rounded">
-Lab02
-</li>
+  <!-- BLOG -->
+  <section id="blog" class="fade-in">
+    <div class="section-header">
+      <div class="section-title" data-i18n="nav_blog">Blog</div>
+      <a href="#" class="section-link" data-i18n="see_all">ดูทั้งหมด →</a>
+    </div>
+    <div class="cards-grid" id="blogList">
+      <!-- JS generated -->
+    </div>
+  </section>
 
-</ul>
+  <!-- LABS -->
+  <section id="labs" class="fade-in">
+    <div class="section-header">
+      <div class="section-title" data-i18n="nav_labs">Labs</div>
+      <a href="#" class="section-link" data-i18n="see_all">ดูทั้งหมด →</a>
+    </div>
+    <div class="labs-grid" id="labsList"></div>
+  </section>
+
+  <!-- CERTIFICATES -->
+  <section id="certs" class="fade-in">
+    <div class="section-header">
+      <div class="section-title" data-i18n="nav_certs">Certificates</div>
+    </div>
+    <div class="certs-grid" id="certsList"></div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="fade-in">
+    <div class="section-header">
+      <div class="section-title" data-i18n="nav_exp">Experience</div>
+    </div>
+    <div class="timeline" id="expList"></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="fade-in">
+    <div class="section-header">
+      <div class="section-title" data-i18n="nav_skills">Skills & Tools</div>
+    </div>
+    <div class="skills-grid" id="skillsList"></div>
+  </section>
 
 </main>
 
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="mono">dev.log</span> &nbsp;·&nbsp; <span data-i18n="footer_built">Built with ❤️ on GitHub Pages</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+      <a href="mailto:you@email.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== SCRIPT ==================== -->
 <script>
+// ===================== DATA — แก้ไขตรงนี้ =====================
 
-const toggle = document.getElementById("theme-toggle")
+const DATA = {
+  blog: [
+    {
+      id: 1,
+      date: "2025-03-10",
+      tags: ["DevOps", "Kubernetes"],
+      title_th: "ตั้งค่า Kubernetes Cluster บน bare-metal ตั้งแต่ต้น",
+      title_en: "Setting up a Kubernetes Cluster on bare-metal from scratch",
+      desc_th: "รวบรวมขั้นตอนการติดตั้งและ config kubeadm, flannel, และ ingress controller แบบละเอียด",
+      desc_en: "A detailed walkthrough of installing and configuring kubeadm, flannel, and ingress controller.",
+      url: "#"
+    },
+    {
+      id: 2,
+      date: "2025-02-22",
+      tags: ["Security", "CTF"],
+      title_th: "สรุปสิ่งที่เรียนรู้จาก TryHackMe — Junior Penetration Tester",
+      title_en: "TryHackMe Junior Penetration Tester Path — Lessons Learned",
+      desc_th: "สิ่งที่ได้เรียนรู้จาก learning path นี้และวิธีนำไปใช้งานจริง",
+      desc_en: "Key takeaways from this learning path and how to apply them in real scenarios.",
+      url: "#"
+    },
+    {
+      id: 3,
+      date: "2025-01-15",
+      tags: ["AWS", "Cloud"],
+      title_th: "เตรียมสอบ AWS SAA-C03 ใน 3 เดือน",
+      title_en: "How I Prepared for AWS SAA-C03 in 3 Months",
+      desc_th: "แชร์ resource และกลยุทธ์ที่ใช้ในการเตรียมสอบ AWS Solutions Architect",
+      desc_en: "Resources and study strategy I used to prepare for the AWS Solutions Architect exam.",
+      url: "#"
+    }
+  ],
 
-toggle.onclick = () => {
-document.documentElement.classList.toggle("dark")
+  labs: [
+    {
+      icon: "🔒",
+      title: "Home Lab Security Stack",
+      title_en: "Home Lab Security Stack",
+      desc_th: "ติดตั้ง Wazuh SIEM + Suricata IDS/IPS บน Proxmox VE สำหรับ monitor network",
+      desc_en: "Deployed Wazuh SIEM + Suricata IDS/IPS on Proxmox VE for network monitoring.",
+      tags: ["Wazuh", "Proxmox", "IDS"],
+      url: "#"
+    },
+    {
+      icon: "☁️",
+      title: "Private Cloud ด้วย OpenStack",
+      title_en: "Private Cloud with OpenStack",
+      desc_th: "สร้าง private cloud environment ด้วย OpenStack บน hardware เก่าที่มีอยู่",
+      desc_en: "Built a private cloud environment with OpenStack on existing hardware.",
+      tags: ["OpenStack", "Networking", "Linux"],
+      url: "#"
+    },
+    {
+      icon: "🐳",
+      title: "CI/CD Pipeline with Jenkins",
+      title_en: "CI/CD Pipeline with Jenkins",
+      desc_th: "สร้าง full CI/CD pipeline ด้วย Jenkins, Docker, และ Ansible สำหรับ deploy app",
+      desc_en: "Built a full CI/CD pipeline with Jenkins, Docker, and Ansible for app deployment.",
+      tags: ["Jenkins", "Docker", "Ansible"],
+      url: "#"
+    },
+    {
+      icon: "📡",
+      title: "Network Monitoring ด้วย Grafana",
+      title_en: "Network Monitoring with Grafana",
+      desc_th: "สร้าง dashboard ด้วย Prometheus + Grafana สำหรับ monitor infrastructure",
+      desc_en: "Built a dashboard with Prometheus + Grafana for infrastructure monitoring.",
+      tags: ["Grafana", "Prometheus", "Monitoring"],
+      url: "#"
+    }
+  ],
+
+  certs: [
+    {
+      icon: "☁️",
+      name: "AWS Certified Solutions Architect – Associate",
+      name_en: "AWS Certified Solutions Architect – Associate",
+      issuer: "Amazon Web Services",
+      status: "pass",
+      date: "2024-11"
+    },
+    {
+      icon: "🔒",
+      name: "CompTIA Security+",
+      name_en: "CompTIA Security+",
+      issuer: "CompTIA",
+      status: "pass",
+      date: "2024-05"
+    },
+    {
+      icon: "🐧",
+      name: "LPIC-1 Linux Administrator",
+      name_en: "LPIC-1 Linux Administrator",
+      issuer: "Linux Professional Institute",
+      status: "pass",
+      date: "2023-09"
+    },
+    {
+      icon: "☸️",
+      name: "Certified Kubernetes Administrator (CKA)",
+      name_en: "Certified Kubernetes Administrator (CKA)",
+      issuer: "CNCF",
+      status: "pending",
+      date: "2025-Q2"
+    }
+  ],
+
+  experience: [
+    {
+      year_th: "2023 — ปัจจุบัน",
+      year_en: "2023 — Present",
+      role_th: "System Engineer",
+      role_en: "System Engineer",
+      company: "Tech Company Co., Ltd.",
+      desc_th: "ดูแลระบบ infrastructure, virtualization, และ network ขนาดกลาง รับผิดชอบ uptime และ automation",
+      desc_en: "Managing mid-scale infrastructure, virtualization, and networking. Responsible for uptime and automation.",
+      tags: ["Linux", "VMware", "Ansible", "Python"]
+    },
+    {
+      year_th: "2021 — 2023",
+      year_en: "2021 — 2023",
+      role_th: "IT Support Engineer",
+      role_en: "IT Support Engineer",
+      company: "Previous Company Co., Ltd.",
+      desc_th: "ให้การสนับสนุนด้าน IT แก่ผู้ใช้ภายในองค์กร ติดตั้งและดูแล Windows Server environment",
+      desc_en: "Provided IT support to internal users. Installed and maintained Windows Server environments.",
+      tags: ["Windows Server", "Active Directory", "Helpdesk"]
+    }
+  ],
+
+  skills: [
+    { icon: "🐧", name: "Linux" },
+    { icon: "🐳", name: "Docker" },
+    { icon: "☸️", name: "Kubernetes" },
+    { icon: "🟠", name: "AWS" },
+    { icon: "🔵", name: "Azure" },
+    { icon: "🤖", name: "Ansible" },
+    { icon: "🔶", name: "Terraform" },
+    { icon: "🔒", name: "Security" },
+    { icon: "🐍", name: "Python" },
+    { icon: "📡", name: "Networking" },
+    { icon: "📊", name: "Grafana" },
+    { icon: "🗄️", name: "PostgreSQL" }
+  ]
+};
+
+// ===================== I18N STRINGS =====================
+const I18N = {
+  th: {
+    nav_blog: "Blog",
+    nav_labs: "Labs",
+    nav_certs: "Certs",
+    nav_exp: "Experience",
+    nav_skills: "Skills & Tools",
+    hero_label: "Portfolio",
+    hero_title: `สวัสดี, ผม<span class="highlight">ชื่อของคุณ</span> 👋`,
+    hero_desc: "นักพัฒนา / วิศวกรระบบ ที่ชอบทดลอง lab ใหม่ๆ เรียนรู้ certification และแชร์ความรู้ผ่าน blog",
+    hero_status: "กำลังทำงานอยู่",
+    hero_location: "Bangkok, Thailand",
+    hero_role: "Software Engineer",
+    see_all: "ดูทั้งหมด →",
+    cert_pass: "ผ่านแล้ว",
+    cert_fail: "ไม่ผ่าน",
+    cert_pending: "กำลังเตรียม",
+    footer_built: "Built with ❤️ บน GitHub Pages"
+  },
+  en: {
+    nav_blog: "Blog",
+    nav_labs: "Labs",
+    nav_certs: "Certs",
+    nav_exp: "Experience",
+    nav_skills: "Skills & Tools",
+    hero_label: "Portfolio",
+    hero_title: `Hi, I'm <span class="highlight">Your Name</span> 👋`,
+    hero_desc: "Developer / Systems Engineer who loves experimenting with new labs, earning certifications, and sharing knowledge through a blog.",
+    hero_status: "Open to work",
+    hero_location: "Bangkok, Thailand",
+    hero_role: "Software Engineer",
+    see_all: "View all →",
+    cert_pass: "Passed",
+    cert_fail: "Failed",
+    cert_pending: "In Progress",
+    footer_built: "Built with ❤️ on GitHub Pages"
+  }
+};
+
+// ===================== STATE =====================
+let currentLang = localStorage.getItem('lang') || 'th';
+let currentTheme = localStorage.getItem('theme') || 'light';
+
+// ===================== RENDER BLOG =====================
+function renderBlog() {
+  const el = document.getElementById('blogList');
+  if (!DATA.blog.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">📝</div>${currentLang === 'th' ? 'ยังไม่มีบทความ' : 'No posts yet'}</div>`;
+    return;
+  }
+  el.innerHTML = DATA.blog.map(p => `
+    <a class="card" href="${p.url}">
+      <div class="card-meta">
+        <span class="card-date">${p.date}</span>
+        ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+      </div>
+      <div class="card-title">${currentLang === 'th' ? p.title_th : p.title_en}</div>
+      <div class="card-desc">${currentLang === 'th' ? p.desc_th : p.desc_en}</div>
+    </a>
+  `).join('');
 }
 
-</script>
+// ===================== RENDER LABS =====================
+function renderLabs() {
+  const el = document.getElementById('labsList');
+  if (!DATA.labs.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">🔬</div>${currentLang === 'th' ? 'ยังไม่มี lab' : 'No labs yet'}</div>`;
+    return;
+  }
+  el.innerHTML = DATA.labs.map(l => `
+    <a class="lab-card" href="${l.url || '#'}">
+      <div class="lab-icon">${l.icon}</div>
+      <div class="lab-title">${currentLang === 'th' ? l.title : l.title_en}</div>
+      <div class="lab-desc">${currentLang === 'th' ? l.desc_th : l.desc_en}</div>
+      <div class="lab-tags">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    </a>
+  `).join('');
+}
 
+// ===================== RENDER CERTS =====================
+function renderCerts() {
+  const el = document.getElementById('certsList');
+  const t = I18N[currentLang];
+  if (!DATA.certs.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">🏅</div>${currentLang === 'th' ? 'ยังไม่มี certificate' : 'No certs yet'}</div>`;
+    return;
+  }
+  const statusMap = { pass: 'pass', fail: 'fail', pending: 'pending' };
+  const statusLabel = { pass: t.cert_pass, fail: t.cert_fail, pending: t.cert_pending };
+  el.innerHTML = DATA.certs.map(c => `
+    <div class="cert-card">
+      <div class="cert-logo">${c.icon}</div>
+      <div class="cert-info">
+        <div class="cert-name">${currentLang === 'th' ? c.name : c.name_en}</div>
+        <div class="cert-issuer">${c.issuer}</div>
+        <span class="cert-badge ${statusMap[c.status]}">${statusLabel[c.status]}</span>
+        <span style="font-size:11px;color:var(--text-faint);margin-left:6px;font-family:'Space Mono',monospace">${c.date}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===================== RENDER EXPERIENCE =====================
+function renderExp() {
+  const el = document.getElementById('expList');
+  if (!DATA.experience.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">💼</div>${currentLang === 'th' ? 'ยังไม่มีข้อมูล' : 'No experience yet'}</div>`;
+    return;
+  }
+  el.innerHTML = DATA.experience.map(e => `
+    <div class="tl-item">
+      <div class="tl-year">${currentLang === 'th' ? e.year_th : e.year_en}</div>
+      <div class="tl-body">
+        <div class="tl-role">${currentLang === 'th' ? e.role_th : e.role_en}</div>
+        <div class="tl-company">${e.company}</div>
+        <div class="tl-desc">${currentLang === 'th' ? e.desc_th : e.desc_en}</div>
+        <div class="tl-tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===================== RENDER SKILLS =====================
+function renderSkills() {
+  const el = document.getElementById('skillsList');
+  el.innerHTML = DATA.skills.map(s => `
+    <div class="skill-item">
+      <span class="skill-icon">${s.icon}</span>
+      <span class="skill-name">${s.name}</span>
+    </div>
+  `).join('');
+}
+
+// ===================== I18N APPLY =====================
+function applyI18n() {
+  const t = I18N[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key]) el.innerHTML = t[key];
+  });
+  document.documentElement.lang = currentLang;
+  document.getElementById('langToggle').textContent = currentLang === 'th' ? 'EN' : 'TH';
+  renderBlog(); renderLabs(); renderCerts(); renderExp(); renderSkills();
+}
+
+// ===================== THEME =====================
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  const sun = document.getElementById('icon-sun');
+  const moon = document.getElementById('icon-moon');
+  if (currentTheme === 'dark') {
+    sun.style.display = 'none'; moon.style.display = 'block';
+  } else {
+    sun.style.display = 'block'; moon.style.display = 'none';
+  }
+}
+
+// ===================== EVENTS =====================
+document.getElementById('themeToggle').addEventListener('click', () => {
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('theme', currentTheme);
+  applyTheme();
+});
+
+document.getElementById('langToggle').addEventListener('click', () => {
+  currentLang = currentLang === 'th' ? 'en' : 'th';
+  localStorage.setItem('lang', currentLang);
+  applyI18n();
+});
+
+// mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
+  mobileMenu.classList.toggle('open');
+});
+document.addEventListener('click', () => mobileMenu.classList.remove('open'));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+// ===================== SCROLL FADE =====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===================== INIT =====================
+applyTheme();
+applyI18n();
+</script>
 </body>
 </html>
