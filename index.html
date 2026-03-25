@@ -3,877 +3,819 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
+  <!-- ✏️ [CUSTOMIZE] เปลี่ยน title ของ browser tab ตรงนี้ -->
+  <title>ZKAD00SH — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
   <style>
-    /* ===================== CSS VARIABLES ===================== */
+    /* ============================================================
+       CSS VARIABLES — เปลี่ยนสีธีมได้ที่นี่
+       ✏️ [CUSTOMIZE] แก้ --accent เพื่อเปลี่ยนสีหลักทั้งเว็บ
+    ============================================================ */
     :root {
       --bg: #f5f4f0;
       --bg-card: #ffffff;
-      --bg-hover: #f0efe9;
+      --bg-hover: #eeeee8;
       --text: #1a1a1a;
       --text-muted: #6b6b6b;
-      --text-faint: #a0a0a0;
+      --text-faint: #a8a8a0;
       --accent: #2563eb;
       --accent-hover: #1d4ed8;
       --accent-subtle: #eff6ff;
-      --border: #e4e4e0;
-      --border-strong: #c8c8c0;
-      --tag-bg: #f0f0ec;
-      --tag-text: #444440;
-      --nav-bg: rgba(245,244,240,0.88);
-      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      --border: #e2e2dc;
+      --border-strong: #c4c4bc;
+      --tag-bg: #f0f0ea;
+      --tag-text: #484844;
+      --nav-bg: rgba(245,244,240,0.90);
       --shadow-hover: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
       --radius: 10px;
-      --transition: 0.18s ease;
+      --t: 0.17s ease;
     }
     [data-theme="dark"] {
-      --bg: #0f0f0f;
-      --bg-card: #181818;
-      --bg-hover: #212121;
-      --text: #e8e8e4;
-      --text-muted: #888880;
-      --text-faint: #555550;
+      --bg: #0d0d0d;
+      --bg-card: #161616;
+      --bg-hover: #1e1e1e;
+      --text: #e6e6e2;
+      --text-muted: #848480;
+      --text-faint: #505050;
       --accent: #60a5fa;
       --accent-hover: #93c5fd;
-      --accent-subtle: #172033;
-      --border: #282828;
-      --border-strong: #383838;
-      --tag-bg: #222220;
-      --tag-text: #a0a09a;
-      --nav-bg: rgba(15,15,15,0.90);
-      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
-      --shadow-hover: 0 2px 8px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+      --accent-subtle: #16243a;
+      --border: #252525;
+      --border-strong: #343434;
+      --tag-bg: #1e1e1c;
+      --tag-text: #9c9c96;
+      --nav-bg: rgba(13,13,13,0.92);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.35);
     }
 
-    /* ===================== RESET & BASE ===================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      transition: background var(--transition), color var(--transition);
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg); color: var(--text);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+      transition: background var(--t), color var(--t);
     }
-    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a { color: var(--accent); text-decoration: none; transition: color var(--t); }
     a:hover { color: var(--accent-hover); }
-    img { max-width: 100%; display: block; }
 
-    /* ===================== TYPOGRAPHY ===================== */
-    .mono { font-family: 'Space Mono', monospace; }
-
-    /* ===================== NAV ===================== */
+    /* ── NAV ──────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      transition: background var(--transition), border-color var(--transition);
+      transition: background var(--t), border-color var(--t);
     }
     .nav-inner {
-      max-width: 860px; margin: 0 auto;
+      max-width: 880px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 24px; height: 56px;
+      padding: 0 24px; height: 54px; gap: 12px;
     }
     .nav-logo {
       font-family: 'Space Mono', monospace;
-      font-size: 14px; font-weight: 700;
-      color: var(--text); letter-spacing: -0.02em;
-      transition: color var(--transition);
+      font-size: 14px; font-weight: 700; letter-spacing: 0.02em;
+      color: var(--text); cursor: pointer; flex-shrink: 0;
+      transition: color var(--t); user-select: none;
     }
     .nav-logo span { color: var(--accent); }
-    .nav-links {
-      display: flex; align-items: center; gap: 4px;
-      list-style: none;
+    .nav-tabs {
+      display: flex; align-items: center; gap: 2px;
+      list-style: none; flex: 1; justify-content: center;
     }
-    .nav-links a {
-      color: var(--text-muted); font-size: 13.5px; font-weight: 500;
-      padding: 5px 10px; border-radius: 6px;
-      transition: color var(--transition), background var(--transition);
+    .nav-tabs button {
+      background: none; border: 1px solid transparent; cursor: pointer;
+      color: var(--text-muted); font-size: 13px; font-weight: 500;
+      font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+      padding: 5px 12px; border-radius: 7px; white-space: nowrap;
+      transition: color var(--t), background var(--t), border-color var(--t);
     }
-    .nav-links a:hover { color: var(--text); background: var(--bg-hover); }
-    .nav-controls { display: flex; align-items: center; gap: 6px; }
-
-    /* icon button */
+    .nav-tabs button:hover { color: var(--text); background: var(--bg-hover); }
+    .nav-tabs button.active {
+      color: var(--text); background: var(--bg-card);
+      border-color: var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .nav-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .icon-btn {
-      width: 34px; height: 34px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg-card);
-      color: var(--text-muted);
+      height: 32px; border: 1px solid var(--border); border-radius: 7px;
+      background: var(--bg-card); color: var(--text-muted);
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: all var(--transition);
-      font-size: 15px;
+      transition: all var(--t); padding: 0 8px; gap: 4px; min-width: 32px;
     }
     .icon-btn:hover { color: var(--text); border-color: var(--border-strong); background: var(--bg-hover); }
-
-    .lang-btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px; font-weight: 700;
-      padding: 0 10px; width: auto;
-      letter-spacing: 0.05em;
-    }
-
-    /* hamburger */
+    .icon-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .lang-btn { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; }
     .hamburger { display: none; }
     .mobile-menu {
-      display: none;
-      position: fixed; top: 56px; left: 0; right: 0;
-      background: var(--bg-card);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 24px 16px;
-      z-index: 99;
+      display: none; position: fixed; top: 54px; left: 0; right: 0;
+      background: var(--bg-card); border-bottom: 1px solid var(--border);
+      padding: 8px 20px 16px; z-index: 99;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
     .mobile-menu.open { display: block; }
-    .mobile-menu a {
-      display: block; padding: 10px 0;
-      color: var(--text-muted); font-size: 15px; font-weight: 500;
-      border-bottom: 1px solid var(--border);
+    .mobile-menu button {
+      display: block; width: 100%; text-align: left;
+      padding: 11px 0; color: var(--text-muted); font-size: 15px; font-weight: 500;
+      font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+      border: none; background: none; cursor: pointer;
+      border-bottom: 1px solid var(--border); transition: color var(--t);
     }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu button:last-child { border-bottom: none; }
+    .mobile-menu button:hover, .mobile-menu button.active { color: var(--accent); }
 
-    /* ===================== LAYOUT ===================== */
-    main {
-      max-width: 860px; margin: 0 auto;
-      padding: 88px 24px 80px;
+    /* ── LAYOUT ───────────────────────────────── */
+    main { max-width: 880px; margin: 0 auto; padding: 74px 24px 80px; }
+
+    /* ── TAB PAGES ────────────────────────────── */
+    .tab-page { display: none; animation: fadeUp 0.22s ease forwards; }
+    .tab-page.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    section { margin-bottom: 72px; }
 
-    /* ===================== HERO ===================== */
-    .hero { padding: 48px 0 32px; }
-    .hero-label {
+    /* ── HERO ─────────────────────────────────── */
+    .hero { padding: 40px 0 20px; margin-bottom: 52px; }
+    .hero-eyebrow {
       font-family: 'Space Mono', monospace;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      color: var(--accent); text-transform: uppercase;
-      margin-bottom: 16px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 14px;
       display: flex; align-items: center; gap: 8px;
     }
-    .hero-label::before {
-      content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
-    }
+    .hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
     .hero h1 {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 600; line-height: 1.2;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      margin-bottom: 16px;
+      font-size: clamp(30px, 5.5vw, 50px); font-weight: 600; line-height: 1.2;
+      letter-spacing: -0.03em; color: var(--text); margin-bottom: 14px;
     }
-    .hero h1 .highlight {
-      color: var(--accent);
-    }
+    .hero h1 .hi { color: var(--text-faint); font-weight: 400; }
+    .hero h1 .name { color: var(--accent); }
     .hero-desc {
-      font-size: 16px; color: var(--text-muted); max-width: 520px;
-      line-height: 1.7; margin-bottom: 28px;
+      font-size: 15.5px; color: var(--text-muted); max-width: 520px;
+      line-height: 1.75; margin-bottom: 24px;
     }
-    .hero-meta {
-      display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
-    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; }
     .hero-badge {
       display: flex; align-items: center; gap: 6px;
       background: var(--tag-bg); border: 1px solid var(--border);
       padding: 5px 12px; border-radius: 20px;
-      font-size: 12.5px; color: var(--text-muted);
+      font-size: 12px; color: var(--text-muted);
     }
-    .hero-badge svg { width: 13px; height: 13px; opacity: 0.6; }
+    .hero-badge svg { width: 12px; height: 12px; opacity: 0.55; flex-shrink: 0; }
     .status-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
-      flex-shrink: 0;
+      width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.2); flex-shrink: 0;
     }
 
-    /* ===================== SECTION HEADER ===================== */
-    .section-header {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 24px; gap: 12px;
+    /* ── HOME BLOCKS ──────────────────────────── */
+    .home-sections { display: flex; flex-direction: column; gap: 36px; }
+    .block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .block-title {
+      font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint);
+      display: flex; align-items: center; gap: 7px;
     }
-    .section-title {
-      font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-faint);
-      font-family: 'Space Mono', monospace;
-      display: flex; align-items: center; gap: 8px;
+    .block-title::before { content: ''; width: 3px; height: 13px; background: var(--accent); border-radius: 2px; }
+    .block-link {
+      font-size: 12px; color: var(--accent); font-weight: 500;
+      cursor: pointer; border: none; background: none;
+      font-family: 'DM Sans', 'Noto Sans Thai', sans-serif;
+      padding: 0; transition: color var(--t);
     }
-    .section-title::before {
-      content: ''; width: 3px; height: 14px;
-      background: var(--accent); border-radius: 2px; flex-shrink: 0;
-    }
-    .section-link {
-      font-size: 12.5px; color: var(--accent);
-      font-weight: 500; white-space: nowrap;
-    }
-    .section-link:hover { text-decoration: underline; }
+    .block-link:hover { color: var(--accent-hover); text-decoration: underline; }
 
-    /* ===================== CARDS (BLOG) ===================== */
-    .cards-grid { display: grid; gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .card {
-      background: var(--bg-card);
-      padding: 20px 24px;
-      display: flex; flex-direction: column; gap: 8px;
-      transition: background var(--transition);
-      cursor: pointer;
-      position: relative;
+    /* cert strip (home preview) */
+    .cert-strip { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .cert-strip-row {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--bg-card); padding: 12px 16px;
+      border-bottom: 1px solid var(--border); transition: background var(--t);
     }
-    .card::after {
-      content: '→';
-      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-      color: var(--text-faint); font-size: 16px;
-      transition: transform var(--transition), color var(--transition);
-    }
-    .card:hover { background: var(--bg-hover); }
-    .card:hover::after { transform: translateY(-50%) translateX(3px); color: var(--accent); }
-    .card + .card { border-top: 1px solid var(--border); }
-    .card-meta {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-    }
-    .card-date {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px; color: var(--text-faint); letter-spacing: 0.04em;
-    }
-    .tag {
-      font-size: 11px; font-weight: 500;
-      background: var(--tag-bg); color: var(--tag-text);
-      padding: 2px 8px; border-radius: 4px;
-      border: 1px solid var(--border);
-    }
-    .tag.accent { background: var(--accent-subtle); color: var(--accent); border-color: transparent; }
-    .card-title {
-      font-size: 15px; font-weight: 500; color: var(--text);
-      line-height: 1.4; padding-right: 28px;
-    }
-    .card-desc {
-      font-size: 13.5px; color: var(--text-muted); line-height: 1.5;
-      padding-right: 28px;
-    }
+    .cert-strip-row:last-child { border-bottom: none; }
+    .cert-strip-row:hover { background: var(--bg-hover); }
+    .cert-strip-icon { font-size: 20px; flex-shrink: 0; }
+    .cert-strip-info { flex: 1; min-width: 0; }
+    .cert-strip-name { font-size: 13.5px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cert-strip-issuer { font-size: 11.5px; color: var(--text-muted); }
 
-    /* ===================== LABS GRID ===================== */
-    .labs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 12px;
+    /* skill chips (home preview) */
+    .skill-preview { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skill-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 7px;
+      font-size: 13px; font-weight: 500; color: var(--text-muted);
+      transition: all var(--t);
     }
-    .lab-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      cursor: pointer;
-      transition: all var(--transition);
-      display: flex; flex-direction: column; gap: 10px;
-    }
-    .lab-card:hover {
-      border-color: var(--border-strong);
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-    .lab-icon {
-      width: 36px; height: 36px;
-      background: var(--accent-subtle);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .lab-title { font-size: 14px; font-weight: 600; color: var(--text); }
-    .lab-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
-    .lab-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+    .skill-chip:hover { border-color: var(--border-strong); color: var(--text); }
 
-    /* ===================== CERTS GRID ===================== */
-    .certs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
+    /* exp preview */
+    .exp-preview { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .exp-row {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--bg-card); padding: 13px 16px;
+      border-bottom: 1px solid var(--border); transition: background var(--t);
     }
+    .exp-row:last-child { border-bottom: none; }
+    .exp-row:hover { background: var(--bg-hover); }
+    .exp-row-year { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--text-faint); width: 90px; flex-shrink: 0; }
+    .exp-row-role { font-size: 13.5px; font-weight: 500; color: var(--text); }
+    .exp-row-company { font-size: 11.5px; color: var(--accent); }
+
+    /* ── PAGE HEADER ──────────────────────────── */
+    .page-header { padding: 36px 0 28px; }
+    .page-title { font-size: clamp(22px, 4vw, 32px); font-weight: 600; letter-spacing: -0.025em; color: var(--text); margin-bottom: 6px; }
+    .page-subtitle { font-size: 14px; color: var(--text-muted); }
+
+    /* ── CERTS GRID ───────────────────────────── */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
     .cert-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex; gap: 14px; align-items: flex-start;
-      cursor: pointer;
-      transition: all var(--transition);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      display: flex; gap: 14px; align-items: flex-start; transition: all var(--t);
     }
-    .cert-card:hover {
-      border-color: var(--border-strong);
-      box-shadow: var(--shadow-hover);
-    }
+    .cert-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); }
     .cert-logo {
-      width: 42px; height: 42px; border-radius: 8px;
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
+      width: 44px; height: 44px; border-radius: 9px;
+      background: var(--tag-bg); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
+      font-size: 24px; flex-shrink: 0;
     }
     .cert-info { flex: 1; min-width: 0; }
-    .cert-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
-    .cert-issuer { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .cert-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 3px; }
+    .cert-issuer { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+    .cert-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .cert-badge {
       display: inline-flex; align-items: center; gap: 4px;
-      font-size: 11px; font-weight: 600; font-family: 'Space Mono', monospace;
-      padding: 2px 7px; border-radius: 4px;
+      font-size: 10.5px; font-weight: 700; font-family: 'Space Mono', monospace;
+      padding: 3px 8px; border-radius: 5px; letter-spacing: 0.04em;
     }
-    .cert-badge.pass { background: rgba(34,197,94,0.12); color: #16a34a; }
-    .cert-badge.fail { background: rgba(239,68,68,0.12); color: #dc2626; }
-    .cert-badge.pending { background: rgba(245,158,11,0.1); color: #d97706; }
-    [data-theme="dark"] .cert-badge.pass { background: rgba(34,197,94,0.15); color: #4ade80; }
-    [data-theme="dark"] .cert-badge.fail { background: rgba(239,68,68,0.15); color: #f87171; }
+    .cert-badge.pass    { background: rgba(34,197,94,0.12);  color: #16a34a; }
+    .cert-badge.fail    { background: rgba(239,68,68,0.12);  color: #dc2626; }
+    .cert-badge.pending { background: rgba(245,158,11,0.10); color: #d97706; }
+    [data-theme="dark"] .cert-badge.pass    { background: rgba(34,197,94,0.15);  color: #4ade80; }
+    [data-theme="dark"] .cert-badge.fail    { background: rgba(239,68,68,0.15);  color: #f87171; }
     [data-theme="dark"] .cert-badge.pending { background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .cert-date { font-size: 10.5px; color: var(--text-faint); font-family: 'Space Mono', monospace; }
+    .verify-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10.5px; font-weight: 600; font-family: 'Space Mono', monospace;
+      padding: 3px 9px; border-radius: 5px; letter-spacing: 0.04em;
+      background: var(--accent-subtle); color: var(--accent);
+      border: 1px solid transparent; cursor: pointer; text-decoration: none;
+      transition: all var(--t);
+    }
+    .verify-btn:hover { background: var(--accent); color: #fff; }
+    .verify-btn svg { width: 10px; height: 10px; }
 
-    /* ===================== TIMELINE (EXPERIENCE) ===================== */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .tl-item {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 20px; padding: 16px 0;
-      border-bottom: 1px solid var(--border);
+    /* ── SKILLS PAGE ──────────────────────────── */
+    .skills-page { display: flex; flex-direction: column; gap: 32px; }
+    .skill-group-title {
+      font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint);
+      margin-bottom: 12px; display: flex; align-items: center; gap: 7px;
     }
-    .tl-item:last-child { border-bottom: none; }
-    .tl-year {
-      font-family: 'Space Mono', monospace;
-      font-size: 11.5px; color: var(--text-faint);
-      padding-top: 3px; letter-spacing: 0.04em;
-    }
-    .tl-body { }
-    .tl-role { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .tl-company { font-size: 13px; color: var(--accent); margin-bottom: 6px; }
-    .tl-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
-    .tl-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-
-    /* ===================== SKILLS SECTION ===================== */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 8px;
-    }
+    .skill-group-title::before { content: ''; width: 3px; height: 13px; background: var(--accent); border-radius: 2px; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
     .skill-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      display: flex; align-items: center; gap: 10px;
-      transition: all var(--transition);
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+      padding: 11px 14px; display: flex; align-items: center; gap: 10px; transition: all var(--t);
     }
     .skill-item:hover { border-color: var(--border-strong); background: var(--bg-hover); }
     .skill-icon { font-size: 18px; flex-shrink: 0; }
-    .skill-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .skill-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .skill-level { margin-left: auto; font-size: 9.5px; font-family: 'Space Mono', monospace; color: var(--text-faint); letter-spacing: 0.04em; white-space: nowrap; }
 
-    /* ===================== FOOTER ===================== */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 24px;
-      max-width: 860px; margin: 0 auto;
+    /* ── EXPERIENCE ───────────────────────────── */
+    .timeline { display: flex; flex-direction: column; }
+    .tl-item {
+      display: grid; grid-template-columns: 96px 1fr; gap: 20px;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
     }
-    .footer-inner {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px;
-    }
-    .footer-left { font-size: 12.5px; color: var(--text-faint); }
+    .tl-item:first-child { padding-top: 0; }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-year { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-faint); padding-top: 4px; line-height: 1.4; }
+    .tl-role { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .tl-company { font-size: 13px; color: var(--accent); margin-bottom: 8px; }
+    .tl-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+    /* ── MISC ─────────────────────────────────── */
+    .tag { font-size: 11px; font-weight: 500; background: var(--tag-bg); color: var(--tag-text); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); }
+    .empty { text-align: center; padding: 48px 24px; color: var(--text-faint); font-size: 14px; border: 1px dashed var(--border); border-radius: var(--radius); }
+    .empty-icon { font-size: 28px; margin-bottom: 10px; }
+
+    /* ── FOOTER ───────────────────────────────── */
+    footer { border-top: 1px solid var(--border); padding: 28px 24px; max-width: 880px; margin: 0 auto; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-left { font-size: 12px; color: var(--text-faint); font-family: 'Space Mono', monospace; }
     .footer-links { display: flex; gap: 16px; }
-    .footer-links a {
-      font-size: 12.5px; color: var(--text-faint);
-      transition: color var(--transition);
-    }
+    .footer-links a { font-size: 12px; color: var(--text-faint); transition: color var(--t); }
     .footer-links a:hover { color: var(--accent); }
 
-    /* ===================== EMPTY STATE ===================== */
-    .empty {
-      text-align: center; padding: 48px 24px;
-      color: var(--text-faint); font-size: 14px;
-      border: 1px dashed var(--border); border-radius: var(--radius);
-    }
-    .empty-icon { font-size: 28px; margin-bottom: 8px; }
-
-    /* ===================== SCROLL FADE IN ===================== */
-    .fade-in {
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ===================== RESPONSIVE ===================== */
+    /* ── RESPONSIVE ───────────────────────────── */
     @media (max-width: 640px) {
-      .nav-links { display: none; }
+      .nav-tabs { display: none; }
       .hamburger { display: flex; }
-      main { padding: 72px 16px 60px; }
+      main { padding: 68px 16px 60px; }
       .tl-item { grid-template-columns: 1fr; gap: 4px; }
-      .tl-year { font-size: 11px; }
-      .hero h1 { font-size: 28px; }
+      .tl-year { font-size: 10.5px; }
       .certs-grid { grid-template-columns: 1fr; }
-      .labs-grid { grid-template-columns: 1fr; }
-      footer { padding: 24px 16px; }
+      footer { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ==================== NAV ==================== -->
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">dev<span>.</span>log</a>
+    <!-- ✏️ [CUSTOMIZE] เปลี่ยนชื่อ logo ตรงนี้ -->
+    <div class="nav-logo" onclick="switchTab('home')">ZKAD<span>00</span>SH</div>
 
-    <ul class="nav-links">
-      <li><a href="#blog" data-i18n="nav_blog">Blog</a></li>
-      <li><a href="#labs" data-i18n="nav_labs">Labs</a></li>
-      <li><a href="#certs" data-i18n="nav_certs">Certs</a></li>
-      <li><a href="#experience" data-i18n="nav_exp">Experience</a></li>
+    <ul class="nav-tabs" id="navTabs">
+      <li><button data-tab="home"   onclick="switchTab('home')"   class="active" data-i18n="nav_home">Home</button></li>
+      <li><button data-tab="exp"    onclick="switchTab('exp')"    data-i18n="nav_exp">Experience</button></li>
+      <li><button data-tab="certs"  onclick="switchTab('certs')"  data-i18n="nav_certs">Certificates & Badges</button></li>
+      <li><button data-tab="skills" onclick="switchTab('skills')" data-i18n="nav_skills">Skills & Tools</button></li>
     </ul>
 
     <div class="nav-controls">
-      <button class="icon-btn lang-btn" id="langToggle" title="Toggle language">TH</button>
-      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
-        <!-- sun icon -->
-        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-        <!-- moon icon -->
-        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <button class="icon-btn lang-btn" id="langToggle">TH</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg id="icon-moon" style="display:none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
       <button class="icon-btn hamburger" id="hamburger" aria-label="Menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
       </button>
     </div>
   </div>
 </nav>
 
-<!-- mobile menu -->
+<!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#blog" data-i18n="nav_blog">Blog</a>
-  <a href="#labs" data-i18n="nav_labs">Labs</a>
-  <a href="#certs" data-i18n="nav_certs">Certs</a>
-  <a href="#experience" data-i18n="nav_exp">Experience</a>
+  <button data-tab="home"   onclick="switchTab('home');closeMobileMenu()"   data-i18n="nav_home">Home</button>
+  <button data-tab="certs"  onclick="switchTab('certs');closeMobileMenu()"  data-i18n="nav_certs">Certificates & Badges</button>
+  <button data-tab="skills" onclick="switchTab('skills');closeMobileMenu()" data-i18n="nav_skills">Skills & Tools</button>
+  <button data-tab="exp"    onclick="switchTab('exp');closeMobileMenu()"    data-i18n="nav_exp">Experience</button>
 </div>
 
-<!-- ==================== MAIN ==================== -->
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
 <main>
 
-  <!-- HERO -->
-  <section class="hero fade-in">
-    <div class="hero-label" data-i18n="hero_label">Portfolio</div>
-    <h1 data-i18n-html="hero_title">สวัสดี, ผม<span class="highlight">ชื่อของคุณ</span> 👋</h1>
-    <p class="hero-desc" data-i18n="hero_desc">
-      นักพัฒนา / วิศวกรระบบ ที่ชอบทดลอง lab ใหม่ๆ เรียนรู้ certification และแชร์ความรู้ผ่าน blog
-    </p>
-    <div class="hero-meta">
-      <div class="hero-badge">
-        <div class="status-dot"></div>
-        <span data-i18n="hero_status">กำลังทำงานอยู่</span>
+  <!-- ──────── TAB: HOME ──────── -->
+  <div class="tab-page active" id="tab-home">
+    <section class="hero">
+      <div class="hero-eyebrow" data-i18n="hero_label">Portfolio</div>
+      <h1>
+        <span class="hi" data-i18n="hero_hi">สวัสดี, ผม </span><span class="name">ZKAD00SH</span> 👋
+      </h1>
+      <!-- ✏️ [CUSTOMIZE] แก้คำอธิบายตัวเองใน I18N.th.hero_desc และ I18N.en.hero_desc -->
+      <p class="hero-desc" data-i18n="hero_desc">
+        Inspired by the technical genius of Benji Dunn from Mission Impossible, I’ve always been fascinated by how individual expertise shapes a mission's success. Today, I channel that inspiration into my role as a Threat Hunter at XFINIT.
+      </p>
+      <div class="hero-badges">
+        <!-- ✏️ [CUSTOMIZE] แก้ status, location, role ตรงนี้ -->
+        <div class="hero-badge"><div class="status-dot"></div><span data-i18n="hero_status">Alive</span></div>
+        <div class="hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Bangkok, Thailand</span><!-- ✏️ เปลี่ยน location -->
+        </div>
+        <div class="hero-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span data-i18n="hero_role">Super Threat Hunter</span><!-- ✏️ เปลี่ยน role -->
+        </div>
       </div>
-      <div class="hero-badge">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span data-i18n="hero_location">Bangkok, Thailand</span>
+    </section>
+
+    <div class="home-sections">
+      <div class="home-block">
+        <div class="block-header">
+          <div class="block-title" data-i18n="nav_certs">Certificates & Badges</div>
+          <button class="block-link" onclick="switchTab('certs')" data-i18n="see_all">ดูทั้งหมด →</button>
+        </div>
+        <div class="cert-strip" id="homeCertPreview"></div>
       </div>
-      <div class="hero-badge">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        <span data-i18n="hero_role">Software Engineer</span>
+
+      <div class="home-block">
+        <div class="block-header">
+          <div class="block-title" data-i18n="nav_skills">Skills & Tools</div>
+          <button class="block-link" onclick="switchTab('skills')" data-i18n="see_all">ดูทั้งหมด →</button>
+        </div>
+        <div class="skill-preview" id="homeSkillPreview"></div>
+      </div>
+
+      <div class="home-block">
+        <div class="block-header">
+          <div class="block-title" data-i18n="nav_exp">Experience</div>
+          <button class="block-link" onclick="switchTab('exp')" data-i18n="see_all">ดูทั้งหมด →</button>
+        </div>
+        <div class="exp-preview" id="homeExpPreview"></div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- BLOG -->
-  <section id="blog" class="fade-in">
-    <div class="section-header">
-      <div class="section-title" data-i18n="nav_blog">Blog</div>
-      <a href="#" class="section-link" data-i18n="see_all">ดูทั้งหมด →</a>
-    </div>
-    <div class="cards-grid" id="blogList">
-      <!-- JS generated -->
-    </div>
-  </section>
-
-  <!-- LABS -->
-  <section id="labs" class="fade-in">
-    <div class="section-header">
-      <div class="section-title" data-i18n="nav_labs">Labs</div>
-      <a href="#" class="section-link" data-i18n="see_all">ดูทั้งหมด →</a>
-    </div>
-    <div class="labs-grid" id="labsList"></div>
-  </section>
-
-  <!-- CERTIFICATES -->
-  <section id="certs" class="fade-in">
-    <div class="section-header">
-      <div class="section-title" data-i18n="nav_certs">Certificates</div>
+  <!-- ──────── TAB: CERTIFICATES ──────── -->
+  <div class="tab-page" id="tab-certs">
+    <div class="page-header">
+      <div class="page-title" data-i18n="nav_certs">Certificates & Badges</div>
+      <div class="page-subtitle" data-i18n="certs_subtitle">ประกาศนียบัตรและ badge ที่ได้รับ</div>
     </div>
     <div class="certs-grid" id="certsList"></div>
-  </section>
+  </div>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" class="fade-in">
-    <div class="section-header">
-      <div class="section-title" data-i18n="nav_exp">Experience</div>
+  <!-- ──────── TAB: SKILLS ──────── -->
+  <div class="tab-page" id="tab-skills">
+    <div class="page-header">
+      <div class="page-title" data-i18n="nav_skills">Skills & Tools</div>
+      <div class="page-subtitle" data-i18n="skills_subtitle">เทคโนโลยีและเครื่องมือที่ใช้งาน</div>
+    </div>
+    <div class="skills-page" id="skillsPage"></div>
+  </div>
+
+  <!-- ──────── TAB: EXPERIENCE ──────── -->
+  <div class="tab-page" id="tab-exp">
+    <div class="page-header">
+      <div class="page-title" data-i18n="nav_exp">Experience</div>
+      <div class="page-subtitle" data-i18n="exp_subtitle">ประสบการณ์การทำงาน</div>
     </div>
     <div class="timeline" id="expList"></div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="fade-in">
-    <div class="section-header">
-      <div class="section-title" data-i18n="nav_skills">Skills & Tools</div>
-    </div>
-    <div class="skills-grid" id="skillsList"></div>
-  </section>
+  </div>
 
 </main>
 
-<!-- ==================== FOOTER ==================== -->
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-left">
-      <span class="mono">dev.log</span> &nbsp;·&nbsp; <span data-i18n="footer_built">Built with ❤️ on GitHub Pages</span>
-    </div>
+    <div class="footer-left">ZKAD00SH &nbsp;·&nbsp; GitHub Pages</div>
     <div class="footer-links">
-      <a href="https://github.com/" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
-      <a href="mailto:you@email.com">Email</a>
+      <!-- ✏️ [CUSTOMIZE] เปลี่ยน URL social links ทั้งหมดตรงนี้ -->
+      <a href="https://github.com/ZKAD00SH" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/natiwat-w" target="_blank">LinkedIn</a>
+      <!-- <a href="https://www.credly.com/users/YOURPROFILE" target="_blank">Credly</a> -->
+      <!-- <a href="mailto:YOUR@EMAIL.COM">Email</a> -->
     </div>
   </div>
 </footer>
 
-<!-- ==================== SCRIPT ==================== -->
+<!-- ═══════════════════════ SCRIPT ═══════════════════════ -->
 <script>
-// ===================== DATA — แก้ไขตรงนี้ =====================
+/* ══════════════════════════════════════════════════════════════════
+   📌  HOW TO CUSTOMIZE — คู่มือแก้ไขข้อมูล
+   ══════════════════════════════════════════════════════════════════
 
+   1. ชื่อ / Bio (hero)
+      → แก้ในส่วน I18N.th.hero_desc  และ  I18N.en.hero_desc
+
+   2. Location / Role badge
+      → แก้ใน HTML ตรง <span>Bangkok, Thailand</span>
+         และ <span data-i18n="hero_role">
+
+   3. Certificates & Badges
+      → เพิ่ม object ใหม่ใน DATA.certs[]
+      → verify_url: ใส่ลิงค์ Credly เช่น
+           "https://www.credly.com/badges/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+         ถ้าไม่มีลิงค์ให้ใส่ "" (ว่าง)
+      → status: "pass" | "fail" | "pending"
+
+   4. Skills & Tools
+      → เพิ่ม/ลบ group ใน DATA.skillGroups[]
+      → แต่ละ group มี title_th, title_en, items[]
+      → level (optional): "Expert" | "Intermediate" | "Learning"
+
+   5. Experience
+      → เพิ่ม object ใหม่ใน DATA.experience[]
+
+   6. Social links (footer)
+      → แก้ href ใน HTML ส่วน FOOTER
+
+   7. สีหลัก (accent color)
+      → แก้ --accent ใน CSS :root (บรรทัดบนสุด)
+
+   8. Logo / ชื่อเว็บ
+      → แก้ใน .nav-logo ใน HTML
+      → แก้ <title> ใน <head>
+
+══════════════════════════════════════════════════════════════════ */
+
+/* ── DATA ──────────────────────────────────────────────────────── */
 const DATA = {
-  blog: [
-    {
-      id: 1,
-      date: "2025-03-10",
-      tags: ["DevOps", "Kubernetes"],
-      title_th: "ตั้งค่า Kubernetes Cluster บน bare-metal ตั้งแต่ต้น",
-      title_en: "Setting up a Kubernetes Cluster on bare-metal from scratch",
-      desc_th: "รวบรวมขั้นตอนการติดตั้งและ config kubeadm, flannel, และ ingress controller แบบละเอียด",
-      desc_en: "A detailed walkthrough of installing and configuring kubeadm, flannel, and ingress controller.",
-      url: "#"
-    },
-    {
-      id: 2,
-      date: "2025-02-22",
-      tags: ["Security", "CTF"],
-      title_th: "สรุปสิ่งที่เรียนรู้จาก TryHackMe — Junior Penetration Tester",
-      title_en: "TryHackMe Junior Penetration Tester Path — Lessons Learned",
-      desc_th: "สิ่งที่ได้เรียนรู้จาก learning path นี้และวิธีนำไปใช้งานจริง",
-      desc_en: "Key takeaways from this learning path and how to apply them in real scenarios.",
-      url: "#"
-    },
-    {
-      id: 3,
-      date: "2025-01-15",
-      tags: ["AWS", "Cloud"],
-      title_th: "เตรียมสอบ AWS SAA-C03 ใน 3 เดือน",
-      title_en: "How I Prepared for AWS SAA-C03 in 3 Months",
-      desc_th: "แชร์ resource และกลยุทธ์ที่ใช้ในการเตรียมสอบ AWS Solutions Architect",
-      desc_en: "Resources and study strategy I used to prepare for the AWS Solutions Architect exam.",
-      url: "#"
-    }
-  ],
 
-  labs: [
-    {
-      icon: "🔒",
-      title: "Home Lab Security Stack",
-      title_en: "Home Lab Security Stack",
-      desc_th: "ติดตั้ง Wazuh SIEM + Suricata IDS/IPS บน Proxmox VE สำหรับ monitor network",
-      desc_en: "Deployed Wazuh SIEM + Suricata IDS/IPS on Proxmox VE for network monitoring.",
-      tags: ["Wazuh", "Proxmox", "IDS"],
-      url: "#"
-    },
-    {
-      icon: "☁️",
-      title: "Private Cloud ด้วย OpenStack",
-      title_en: "Private Cloud with OpenStack",
-      desc_th: "สร้าง private cloud environment ด้วย OpenStack บน hardware เก่าที่มีอยู่",
-      desc_en: "Built a private cloud environment with OpenStack on existing hardware.",
-      tags: ["OpenStack", "Networking", "Linux"],
-      url: "#"
-    },
-    {
-      icon: "🐳",
-      title: "CI/CD Pipeline with Jenkins",
-      title_en: "CI/CD Pipeline with Jenkins",
-      desc_th: "สร้าง full CI/CD pipeline ด้วย Jenkins, Docker, และ Ansible สำหรับ deploy app",
-      desc_en: "Built a full CI/CD pipeline with Jenkins, Docker, and Ansible for app deployment.",
-      tags: ["Jenkins", "Docker", "Ansible"],
-      url: "#"
-    },
-    {
-      icon: "📡",
-      title: "Network Monitoring ด้วย Grafana",
-      title_en: "Network Monitoring with Grafana",
-      desc_th: "สร้าง dashboard ด้วย Prometheus + Grafana สำหรับ monitor infrastructure",
-      desc_en: "Built a dashboard with Prometheus + Grafana for infrastructure monitoring.",
-      tags: ["Grafana", "Prometheus", "Monitoring"],
-      url: "#"
-    }
-  ],
-
+  /* ─── CERTIFICATES ────────────────────────────────────────────
+     ✏️ เพิ่ม cert ใหม่โดย copy block { } ด้านล่าง
+  ────────────────────────────────────────────────────────────── */
   certs: [
     {
       icon: "☁️",
-      name: "AWS Certified Solutions Architect – Associate",
-      name_en: "AWS Certified Solutions Architect – Associate",
-      issuer: "Amazon Web Services",
-      status: "pass",
-      date: "2024-11"
+      name_th: "EC-Council Certified Incident Handler",
+      name_en: "EC-Council Certified Incident Handler",
+      issuer: "EC-Council",
+      status: "pass",      // "pass" | "fail" | "pending"
+      date: "2025-10",
+      verify_url: "https://aspen.eccouncil.org/VerifyBadge?&type=certification&a=ijlzqC/HWvtp+xDAGgZ2caDsLQr/JgVKAoRuJEMgjOg="
     },
     {
       icon: "🔒",
-      name: "CompTIA Security+",
-      name_en: "CompTIA Security+",
-      issuer: "CompTIA",
+      name_th: "Security Analyst (SAL1) Certificate",
+      name_en: "Security Analyst (SAL1) Certificate",
+      issuer: "TryHackMe",
       status: "pass",
-      date: "2024-05"
+      date: "2025-03",
+      verify_url: "https://assets.tryhackme.com/certification-certificate/67e79b2fdd182854efb04929.pdf"
     },
     {
       icon: "🐧",
-      name: "LPIC-1 Linux Administrator",
+      name_th: "LPIC-1 Linux Administrator",
       name_en: "LPIC-1 Linux Administrator",
       issuer: "Linux Professional Institute",
       status: "pass",
-      date: "2023-09"
+      date: "2023-09",
+      verify_url: ""   // ← ไม่มี Credly ปล่อยว่าง
     },
     {
       icon: "☸️",
-      name: "Certified Kubernetes Administrator (CKA)",
+      name_th: "Certified Kubernetes Administrator (CKA)",
       name_en: "Certified Kubernetes Administrator (CKA)",
-      issuer: "CNCF",
+      issuer: "CNCF / The Linux Foundation",
       status: "pending",
-      date: "2025-Q2"
+      date: "2025-Q2",
+      verify_url: ""
     }
   ],
 
+  /* ─── SKILL GROUPS ────────────────────────────────────────────
+     ✏️ เพิ่มกลุ่มใหม่ หรือเพิ่ม item ในกลุ่มที่มีอยู่
+     level (optional): "Expert" | "Intermediate" | "Learning"
+  ────────────────────────────────────────────────────────────── */
+  skillGroups: [
+    {
+      title_th: "Infrastructure & Cloud",
+      title_en: "Infrastructure & Cloud",
+      items: [
+        { icon: "🐧", name: "Linux",       level: "Expert" },
+        { icon: "🟠", name: "AWS",         level: "Intermediate" },
+        { icon: "🔵", name: "Azure",       level: "Intermediate" },
+        { icon: "🖥️", name: "Proxmox VE",  level: "Expert" },
+        { icon: "💠", name: "VMware",      level: "Intermediate" }
+      ]
+    },
+    {
+      title_th: "DevOps & Automation",
+      title_en: "DevOps & Automation",
+      items: [
+        { icon: "🐳", name: "Docker",      level: "Expert" },
+        { icon: "☸️", name: "Kubernetes",  level: "Intermediate" },
+        { icon: "🤖", name: "Ansible",     level: "Expert" },
+        { icon: "🔶", name: "Terraform",   level: "Intermediate" },
+        { icon: "🔧", name: "Jenkins",     level: "Intermediate" }
+      ]
+    },
+    {
+      title_th: "Security & Monitoring",
+      title_en: "Security & Monitoring",
+      items: [
+        { icon: "🛡️", name: "Wazuh SIEM",  level: "Intermediate" },
+        { icon: "📡", name: "Suricata",    level: "Learning" },
+        { icon: "📊", name: "Grafana",     level: "Intermediate" },
+        { icon: "📈", name: "Prometheus",  level: "Intermediate" }
+      ]
+    },
+    {
+      title_th: "Programming & Scripting",
+      title_en: "Programming & Scripting",
+      items: [
+        { icon: "🐍", name: "Python",      level: "Intermediate" },
+        { icon: "💻", name: "Bash",        level: "Expert" },
+        { icon: "🗄️", name: "PostgreSQL",  level: "Intermediate" }
+      ]
+    }
+  ],
+
+  /* ─── EXPERIENCE ──────────────────────────────────────────────
+     ✏️ เพิ่ม/แก้ข้อมูลประสบการณ์ตรงนี้
+  ────────────────────────────────────────────────────────────── */
   experience: [
     {
       year_th: "2023 — ปัจจุบัน",
       year_en: "2023 — Present",
-      role_th: "System Engineer",
-      role_en: "System Engineer",
-      company: "Tech Company Co., Ltd.",
-      desc_th: "ดูแลระบบ infrastructure, virtualization, และ network ขนาดกลาง รับผิดชอบ uptime และ automation",
-      desc_en: "Managing mid-scale infrastructure, virtualization, and networking. Responsible for uptime and automation.",
-      tags: ["Linux", "VMware", "Ansible", "Python"]
+      role_th: "Cyber Threat Hunter",
+      role_en: "Cyber Threat Hunter",
+      company: "XFINIT Co., Ltd.",
+      desc_th: "ดูแลระบบ infrastructure, virtualization และ network ขนาดกลาง รับผิดชอบ uptime และ automation ด้วย Ansible และ Python",
+      desc_en: "Managing mid-scale infrastructure, virtualization, and networking. Responsible for uptime and automation with Ansible and Python.",
+      tags: ["EDR", "WAF", "VA", "MDR", "DFIR"]
     },
     {
-      year_th: "2021 — 2023",
-      year_en: "2021 — 2023",
-      role_th: "IT Support Engineer",
-      role_en: "IT Support Engineer",
-      company: "Previous Company Co., Ltd.",
-      desc_th: "ให้การสนับสนุนด้าน IT แก่ผู้ใช้ภายในองค์กร ติดตั้งและดูแล Windows Server environment",
-      desc_en: "Provided IT support to internal users. Installed and maintained Windows Server environments.",
-      tags: ["Windows Server", "Active Directory", "Helpdesk"]
+      year_th: "2022 — 2023",
+      year_en: "2022 — 2023",
+      role_th: "Cyber Threat Hunter",
+      role_en: "Cyber Threat Hunter",
+      company: "INFINITY TO INFINITY Co., Ltd.",
+      desc_th: "ดูแลระบบ infrastructure, virtualization และ network ขนาดกลาง รับผิดชอบ uptime และ automation ด้วย Ansible และ Python",
+      desc_en: "Managing mid-scale infrastructure, virtualization, and networking. Responsible for uptime and automation with Ansible and Python.",
+      tags: ["EDR", "WAF", "VA", "MDR", "DFIR"]
+    },
+    {
+      year_th: "2020 — 2022",
+      year_en: "2020 — 2022",
+      role_th: "Application Security Engineer",
+      role_en: "Application Security Engineer",
+      company: "I-SECURE Co., Ltd.",
+      desc_th: "ให้การสนับสนุนด้าน IT แก่ผู้ใช้ภายในองค์กร ติดตั้งและดูแล Windows Server, Active Directory environment",
+      desc_en: "Provided IT support to internal users. Installed and maintained Windows Server, Active Directory environments.",
+      tags: ["WAF", "Web Application Pentest", "EDR", "Networking"]
     }
-  ],
-
-  skills: [
-    { icon: "🐧", name: "Linux" },
-    { icon: "🐳", name: "Docker" },
-    { icon: "☸️", name: "Kubernetes" },
-    { icon: "🟠", name: "AWS" },
-    { icon: "🔵", name: "Azure" },
-    { icon: "🤖", name: "Ansible" },
-    { icon: "🔶", name: "Terraform" },
-    { icon: "🔒", name: "Security" },
-    { icon: "🐍", name: "Python" },
-    { icon: "📡", name: "Networking" },
-    { icon: "📊", name: "Grafana" },
-    { icon: "🗄️", name: "PostgreSQL" }
   ]
 };
 
-// ===================== I18N STRINGS =====================
+/* ── I18N ───────────────────────────────────────────────────────
+   ✏️ แก้คำแปลได้ที่นี่
+   hero_desc: คำอธิบายตัวเองบนหน้า Home
+────────────────────────────────────────────────────────────── */
 const I18N = {
   th: {
-    nav_blog: "Blog",
-    nav_labs: "Labs",
-    nav_certs: "Certs",
-    nav_exp: "Experience",
+    nav_home: "Home",
+    nav_certs: "Certificates & Badges",
     nav_skills: "Skills & Tools",
+    nav_exp: "Experience",
     hero_label: "Portfolio",
-    hero_title: `สวัสดี, ผม<span class="highlight">ชื่อของคุณ</span> 👋`,
-    hero_desc: "นักพัฒนา / วิศวกรระบบ ที่ชอบทดลอง lab ใหม่ๆ เรียนรู้ certification และแชร์ความรู้ผ่าน blog",
-    hero_status: "กำลังทำงานอยู่",
-    hero_location: "Bangkok, Thailand",
-    hero_role: "Software Engineer",
+    hero_hi: "สวัสดี, ผม ",
+    hero_desc: "ด้วยแรงบันดาลใจจากความอัจฉริยะทางเทคนิคของ Benji Dunn จากภาพยนตร์ Mission Impossible ผมจึงหลงใหลในวิธีการที่ความเชี่ยวชาญเฉพาะบุคคลส่งผลต่อความสำเร็จของภารกิจมาโดยตลอด ปัจจุบัน ผมได้นำแรงบันดาลใจนั้นมาใช้ในบทบาทของผมในฐานะนักล่าภัยคุกคามที่ XFINIT",
+    hero_status: "มีชีวิต",
+    hero_role: "Super Threat Hunter",
     see_all: "ดูทั้งหมด →",
-    cert_pass: "ผ่านแล้ว",
-    cert_fail: "ไม่ผ่าน",
-    cert_pending: "กำลังเตรียม",
-    footer_built: "Built with ❤️ บน GitHub Pages"
+    cert_pass: "PASSED",
+    cert_fail: "FAILED",
+    cert_pending: "IN PROGRESS",
+    cert_verify: "Verify",
+    certs_subtitle: "ประกาศนียบัตรและ badge ที่ได้รับ",
+    skills_subtitle: "เทคโนโลยีและเครื่องมือที่ใช้งาน",
+    exp_subtitle: "ประสบการณ์การทำงาน"
   },
   en: {
-    nav_blog: "Blog",
-    nav_labs: "Labs",
-    nav_certs: "Certs",
-    nav_exp: "Experience",
+    nav_home: "Home",
+    nav_certs: "Certificates & Badges",
     nav_skills: "Skills & Tools",
+    nav_exp: "Experience",
     hero_label: "Portfolio",
-    hero_title: `Hi, I'm <span class="highlight">Your Name</span> 👋`,
-    hero_desc: "Developer / Systems Engineer who loves experimenting with new labs, earning certifications, and sharing knowledge through a blog.",
-    hero_status: "Open to work",
-    hero_location: "Bangkok, Thailand",
-    hero_role: "Software Engineer",
+    hero_hi: "Hi, I'm ",
+    hero_desc: "Inspired by the technical genius of Benji Dunn from Mission Impossible, I’ve always been fascinated by how individual expertise shapes a mission's success. Today, I channel that inspiration into my role as a Threat Hunter at XFINIT.",
+    hero_status: "Alive",
+    hero_role: "Super Threat Hunter",
     see_all: "View all →",
-    cert_pass: "Passed",
-    cert_fail: "Failed",
-    cert_pending: "In Progress",
-    footer_built: "Built with ❤️ on GitHub Pages"
+    cert_pass: "PASSED",
+    cert_fail: "FAILED",
+    cert_pending: "IN PROGRESS",
+    cert_verify: "Verify",
+    certs_subtitle: "Certificates and badges earned",
+    skills_subtitle: "Technologies and tools I work with",
+    exp_subtitle: "Work experience"
   }
 };
 
-// ===================== STATE =====================
-let currentLang = localStorage.getItem('lang') || 'th';
+/* ── STATE ──────────────────────────────────────────────────── */
+let currentLang  = localStorage.getItem('lang')  || 'th';
 let currentTheme = localStorage.getItem('theme') || 'light';
 
-// ===================== RENDER BLOG =====================
-function renderBlog() {
-  const el = document.getElementById('blogList');
-  if (!DATA.blog.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">📝</div>${currentLang === 'th' ? 'ยังไม่มีบทความ' : 'No posts yet'}</div>`;
-    return;
-  }
-  el.innerHTML = DATA.blog.map(p => `
-    <a class="card" href="${p.url}">
-      <div class="card-meta">
-        <span class="card-date">${p.date}</span>
-        ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-      </div>
-      <div class="card-title">${currentLang === 'th' ? p.title_th : p.title_en}</div>
-      <div class="card-desc">${currentLang === 'th' ? p.desc_th : p.desc_en}</div>
-    </a>
-  `).join('');
+/* ── TAB SWITCH ─────────────────────────────────────────────── */
+function switchTab(tab) {
+  document.querySelectorAll('.tab-page').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('[data-tab]').forEach(b =>
+    b.classList.toggle('active', b.getAttribute('data-tab') === tab)
+  );
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===================== RENDER LABS =====================
-function renderLabs() {
-  const el = document.getElementById('labsList');
-  if (!DATA.labs.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">🔬</div>${currentLang === 'th' ? 'ยังไม่มี lab' : 'No labs yet'}</div>`;
-    return;
-  }
-  el.innerHTML = DATA.labs.map(l => `
-    <a class="lab-card" href="${l.url || '#'}">
-      <div class="lab-icon">${l.icon}</div>
-      <div class="lab-title">${currentLang === 'th' ? l.title : l.title_en}</div>
-      <div class="lab-desc">${currentLang === 'th' ? l.desc_th : l.desc_en}</div>
-      <div class="lab-tags">${l.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-    </a>
-  `).join('');
-}
-
-// ===================== RENDER CERTS =====================
+/* ── RENDER CERTS ───────────────────────────────────────────── */
 function renderCerts() {
-  const el = document.getElementById('certsList');
   const t = I18N[currentLang];
-  if (!DATA.certs.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">🏅</div>${currentLang === 'th' ? 'ยังไม่มี certificate' : 'No certs yet'}</div>`;
-    return;
-  }
-  const statusMap = { pass: 'pass', fail: 'fail', pending: 'pending' };
   const statusLabel = { pass: t.cert_pass, fail: t.cert_fail, pending: t.cert_pending };
-  el.innerHTML = DATA.certs.map(c => `
-    <div class="cert-card">
-      <div class="cert-logo">${c.icon}</div>
-      <div class="cert-info">
-        <div class="cert-name">${currentLang === 'th' ? c.name : c.name_en}</div>
-        <div class="cert-issuer">${c.issuer}</div>
-        <span class="cert-badge ${statusMap[c.status]}">${statusLabel[c.status]}</span>
-        <span style="font-size:11px;color:var(--text-faint);margin-left:6px;font-family:'Space Mono',monospace">${c.date}</span>
+
+  // Full page
+  const el = document.getElementById('certsList');
+  el.innerHTML = DATA.certs.length
+    ? DATA.certs.map(c => `
+        <div class="cert-card">
+          <div class="cert-logo">${c.icon}</div>
+          <div class="cert-info">
+            <div class="cert-name">${currentLang === 'th' ? c.name_th : c.name_en}</div>
+            <div class="cert-issuer">${c.issuer}</div>
+            <div class="cert-footer">
+              <span class="cert-badge ${c.status}">${statusLabel[c.status]}</span>
+              <span class="cert-date">${c.date}</span>
+              ${c.verify_url ? `
+                <a class="verify-btn" href="${c.verify_url}" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  ${t.cert_verify}
+                </a>` : ''}
+            </div>
+          </div>
+        </div>`).join('')
+    : `<div class="empty"><div class="empty-icon">🏅</div>${currentLang === 'th' ? 'ยังไม่มี certificate' : 'No certs yet'}</div>`;
+
+  // Home preview (first 3)
+  document.getElementById('homeCertPreview').innerHTML = DATA.certs.slice(0, 3).map(c => `
+    <div class="cert-strip-row">
+      <div class="cert-strip-icon">${c.icon}</div>
+      <div class="cert-strip-info">
+        <div class="cert-strip-name">${currentLang === 'th' ? c.name_th : c.name_en}</div>
+        <div class="cert-strip-issuer">${c.issuer}</div>
       </div>
-    </div>
-  `).join('');
+      <span class="cert-badge ${c.status}" style="flex-shrink:0;margin-left:auto">${statusLabel[c.status]}</span>
+    </div>`).join('');
 }
 
-// ===================== RENDER EXPERIENCE =====================
+/* ── RENDER SKILLS ──────────────────────────────────────────── */
+function renderSkills() {
+  // Full page (grouped)
+  document.getElementById('skillsPage').innerHTML = DATA.skillGroups.map(g => `
+    <div class="skill-group">
+      <div class="skill-group-title">${currentLang === 'th' ? g.title_th : g.title_en}</div>
+      <div class="skills-grid">
+        ${g.items.map(s => `
+          <div class="skill-item">
+            <span class="skill-icon">${s.icon}</span>
+            <span class="skill-label">${s.name}</span>
+            ${s.level ? `<span class="skill-level">${s.level}</span>` : ''}
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // Home preview (flat, first 10)
+  const flat = DATA.skillGroups.flatMap(g => g.items).slice(0, 10);
+  document.getElementById('homeSkillPreview').innerHTML =
+    flat.map(s => `<div class="skill-chip">${s.icon} ${s.name}</div>`).join('');
+}
+
+/* ── RENDER EXPERIENCE ──────────────────────────────────────── */
 function renderExp() {
   const el = document.getElementById('expList');
-  if (!DATA.experience.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">💼</div>${currentLang === 'th' ? 'ยังไม่มีข้อมูล' : 'No experience yet'}</div>`;
-    return;
-  }
-  el.innerHTML = DATA.experience.map(e => `
-    <div class="tl-item">
-      <div class="tl-year">${currentLang === 'th' ? e.year_th : e.year_en}</div>
-      <div class="tl-body">
-        <div class="tl-role">${currentLang === 'th' ? e.role_th : e.role_en}</div>
-        <div class="tl-company">${e.company}</div>
-        <div class="tl-desc">${currentLang === 'th' ? e.desc_th : e.desc_en}</div>
-        <div class="tl-tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+  el.innerHTML = DATA.experience.length
+    ? DATA.experience.map(e => `
+        <div class="tl-item">
+          <div class="tl-year">${currentLang === 'th' ? e.year_th : e.year_en}</div>
+          <div class="tl-body">
+            <div class="tl-role">${currentLang === 'th' ? e.role_th : e.role_en}</div>
+            <div class="tl-company">${e.company}</div>
+            <div class="tl-desc">${currentLang === 'th' ? e.desc_th : e.desc_en}</div>
+            <div class="tl-tags">${e.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </div>`).join('')
+    : `<div class="empty"><div class="empty-icon">💼</div>${currentLang === 'th' ? 'ยังไม่มีข้อมูล' : 'No experience yet'}</div>`;
+
+  // Home preview
+  document.getElementById('homeExpPreview').innerHTML = DATA.experience.slice(0, 3).map(e => `
+    <div class="exp-row">
+      <div class="exp-row-year">${currentLang === 'th' ? e.year_th : e.year_en}</div>
+      <div>
+        <div class="exp-row-role">${currentLang === 'th' ? e.role_th : e.role_en}</div>
+        <div class="exp-row-company">${e.company}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-// ===================== RENDER SKILLS =====================
-function renderSkills() {
-  const el = document.getElementById('skillsList');
-  el.innerHTML = DATA.skills.map(s => `
-    <div class="skill-item">
-      <span class="skill-icon">${s.icon}</span>
-      <span class="skill-name">${s.name}</span>
-    </div>
-  `).join('');
-}
-
-// ===================== I18N APPLY =====================
+/* ── I18N APPLY ─────────────────────────────────────────────── */
 function applyI18n() {
   const t = I18N[currentLang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (t[key]) el.textContent = t[key];
-  });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.getAttribute('data-i18n-html');
-    if (t[key]) el.innerHTML = t[key];
+    if (t[key] !== undefined) el.textContent = t[key];
   });
   document.documentElement.lang = currentLang;
   document.getElementById('langToggle').textContent = currentLang === 'th' ? 'EN' : 'TH';
-  renderBlog(); renderLabs(); renderCerts(); renderExp(); renderSkills();
+  renderCerts(); renderSkills(); renderExp();
 }
 
-// ===================== THEME =====================
+/* ── THEME ──────────────────────────────────────────────────── */
 function applyTheme() {
   document.documentElement.setAttribute('data-theme', currentTheme);
-  const sun = document.getElementById('icon-sun');
-  const moon = document.getElementById('icon-moon');
-  if (currentTheme === 'dark') {
-    sun.style.display = 'none'; moon.style.display = 'block';
-  } else {
-    sun.style.display = 'block'; moon.style.display = 'none';
-  }
+  document.getElementById('icon-sun').style.display  = currentTheme === 'dark' ? 'none'  : 'block';
+  document.getElementById('icon-moon').style.display = currentTheme === 'dark' ? 'block' : 'none';
 }
 
-// ===================== EVENTS =====================
+/* ── EVENTS ─────────────────────────────────────────────────── */
 document.getElementById('themeToggle').addEventListener('click', () => {
   currentTheme = currentTheme === 'light' ? 'dark' : 'light';
   localStorage.setItem('theme', currentTheme);
   applyTheme();
 });
-
 document.getElementById('langToggle').addEventListener('click', () => {
   currentLang = currentLang === 'th' ? 'en' : 'th';
   localStorage.setItem('lang', currentLang);
   applyI18n();
 });
 
-// mobile menu
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', (e) => {
-  e.stopPropagation();
-  mobileMenu.classList.toggle('open');
-});
+hamburger.addEventListener('click', e => { e.stopPropagation(); mobileMenu.classList.toggle('open'); });
 document.addEventListener('click', () => mobileMenu.classList.remove('open'));
-mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+function closeMobileMenu() { mobileMenu.classList.remove('open'); }
 
-// ===================== SCROLL FADE =====================
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// ===================== INIT =====================
+/* ── INIT ───────────────────────────────────────────────────── */
 applyTheme();
 applyI18n();
 </script>
